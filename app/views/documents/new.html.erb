@@ -1,12 +1,12 @@
-<%= simple_form_for(document) do |f| %>
-  <%= f.input :client %>
-  <%= f.input :description %>
-  <%# It can be a dropdown list%>
-  <%= f.input :agency, collection: Document::TAX_NAME %>
-  <%# It can be a dropdown list %>
-  <%= f.input :tax_name, collection: Document::TAX_NAME %>
-  <%# I don't want a calendar %>
-  <%= f.input :date, as: :date, order: [:month, :year] %>
-  <%= f.infut :file, as: :file  %>
-  <%= f.submit %>
-<% end %>
+<div class="container form">
+  <h2 class= "form">Cargar los nuevos documentos</h2>
+  <%= simple_form_for(@document) do |f| %>
+    <%= f.input :client, label: "Cliente" %>
+    <%= f.input :description, label: "Descripción" %>
+    <%= f.input :agency, collection: Document::AGENCY_NAME, label: "Oficina de gobierno" %>
+    <%= f.input :tax_name, collection: Document::TAX_NAME, label: "Tipo de impuesto" %>
+    <%= f.input :date, as: :date, order: [:month, :year], label: "Fecha" %>
+    <%= f.input :pdf_file, as: :file, label: "Adjuntar archivo PDF" %>
+    <%= f.submit %>
+  <% end %>
+</div>
