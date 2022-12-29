@@ -1,0 +1,9 @@
+<div class="container form">
+  <h2 class= "form">Cargar los datos de nuevos clientes</h2>
+  <%= simple_form_for [@client] do |f| %>
+    <%= f.input :name, label: "Nombre del Cliente" %>
+    <%= f.input :cuit, label: "Numero de C.U.I.T" %>
+    <%= f.input :domicilio, label: "Domicilio" %>
+    <%= f.submit %>
+  <% end %>
+</div>
