@@ -2,8 +2,9 @@ class ClientsController < ApplicationController
   def index
 
   end
-  def show
 
+  def show
+    @client = Client.find(params[:id])
   end
 
   def new
@@ -14,7 +15,7 @@ class ClientsController < ApplicationController
     @client = Client.new(client_params)
 
     if @client.save!
-      redirect_to @client, notice: "El documento se cargó correctamente"
+      redirect_to @client
     else
       render :new
     end

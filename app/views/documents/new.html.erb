@@ -1,6 +1,7 @@
 <div class="container form">
   <h2 class= "form">Cargar los nuevos documentos</h2>
   <%= simple_form_for [@client, @document] do |f| %>
+    <%= f.association :client %>
     <%= f.input :description, label: "Descripción" %>
     <%= f.input :agency, collection: Document::AGENCY_NAME, label: "Oficina de gobierno" %>
     <%= f.input :tax_name, collection: Document::TAX_NAME, label: "Tipo de impuesto" %>

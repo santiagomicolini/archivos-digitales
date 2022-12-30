@@ -1,6 +1,6 @@
 class DocumentsController < ApplicationController
   def new
-    @cliuent = Client.find(params[:client_id])
+    @client = Client.find(params[:client_id])
     @document = Document.new
   end
 
@@ -8,7 +8,7 @@ class DocumentsController < ApplicationController
     @document = Document.new(document_params)
 
     if @document.save!
-      redirect_to @document, notice: "El documento se cargó correctamente"
+      redirect_to @document
     else
       render :new
     end
@@ -17,6 +17,6 @@ class DocumentsController < ApplicationController
   private
 
   def document_params
-    params.require(:document).permit(:description, :agency, :tax_name, :date, :pdf_file)
+    params.require(:document).permit(:client_id, :description, :agency, :tax_name, :date, :file)
   end
 end
