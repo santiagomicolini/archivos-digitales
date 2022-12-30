@@ -6,7 +6,7 @@
     <%= f.input :agency, collection: Document::AGENCY_NAME, label: "Oficina de gobierno" %>
     <%= f.input :tax_name, collection: Document::TAX_NAME, label: "Tipo de impuesto" %>
     <%= f.input :date, as: :date, order: [:month, :year], label: "Fecha" %>
-    <%= f.input :pdf_file, as: :file, label: "Adjuntar archivo PDF" %>
+    <%= f.input :file, as: :file, label: "Adjuntar archivo PDF" %>
     <%= f.submit %>
   <% end %>
 </div>

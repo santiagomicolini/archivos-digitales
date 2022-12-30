@@ -8,7 +8,7 @@ class DocumentsController < ApplicationController
     @document = Document.new(document_params)
 
     if @document.save!
-      redirect_to @document
+      redirect_to @clients
     else
       render :new
     end
