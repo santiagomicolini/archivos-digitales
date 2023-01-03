@@ -2,4 +2,29 @@
 <p>Archivos de <%= @client.name %></p>
 <%= link_to "Añadir un archivo", "/clients/:client_id/documents/new"%>
 
+<div data-controller="modal" class="grid">
+  <% @documents.each do |doc| %>
+    <div class="flex hidden text-gray-600 justify-center items-center w-screen h-screen z-10 fixed top-0 left-0" data-modal-target="modal">
+			<div class="w-screen h-screen bg-gray-500 opacity-75" data-action="click->modal#close">
+			</div>
+
+			<div class="absolute" style="width: 33%;">
+				<div data-modal-target="modalImgShell" class="h-screen w-full flex flex-col items-end justify-center">
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 relative cursor-pointer" viewBox="0 0 20 20" fill="currentColor">
+						<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+					</svg>
+				</div>
+			</div>
+		</div>
+
+    <% if doc.file.previewable? %>
+			<img src="<%= doc.file.preview(resize_to_limit: [500, 500]).processed.service_url %>" class="w-full h-full object-center object-cover lg:w-full lg:h-full cursor-pointer" data-action="click->modal#openPdf" data-view="<%= doc.file.service_url %>">
+    <% else %>
+			<img src="<%= doc.file.service_url %>" class="w-full h-full object-center object-cover lg:w-full lg:h-full cursor-pointer" data-action="click->modal#open" data-view="<%= doc.file.service_url %>">
+		<% end %>
+
+    <%= link_to doc.description, document_path(doc) %>
+  <% end %>
+</div>
+
 <p>I'm going to show here all the documents for this particular client</p>

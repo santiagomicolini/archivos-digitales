@@ -1,10 +1,9 @@
 class ClientsController < ApplicationController
-  def index
-
-  end
+  before_action :set_client, only: [:show]
+  before_action :set_documents, only: [:show]
 
   def show
-    @client = Client.find(params[:id])
+    @documents = Document.all
   end
 
   def new
@@ -15,13 +14,21 @@ class ClientsController < ApplicationController
     @client = Client.new(client_params)
 
     if @client.save!
-      redirect_to @client
+      redirect_to @clients_path
     else
       render :new
     end
   end
 
   private
+
+  def set_documents
+    @documents = Document.find(params[:id])
+  end
+
+  def set_client
+    @client = Client.find(params[:id])
+  end
 
   def client_params
     params.require(:client).permit(:name, :cuit, :domicilio)
