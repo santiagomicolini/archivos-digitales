@@ -2,6 +2,10 @@ class ClientsController < ApplicationController
   before_action :set_client, only: [:show]
   before_action :set_documents, only: [:show]
 
+  def index
+    @clients = Client.all
+  end
+
   def show
     @documents = Document.all
   end

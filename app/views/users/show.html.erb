@@ -3,3 +3,7 @@
 
 <h3>Here we are going to have all the customers and we can access to each of them</h3>
 <%= link_to 'Crear un nuevo cliente', '/clients/new' %>
+
+<% @clients.each do |client| %>
+  <%= link_to client.name, client_path %>
+<% end %>

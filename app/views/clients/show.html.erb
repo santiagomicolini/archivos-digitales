@@ -19,11 +19,10 @@
 
     <% if doc.file.previewable? %>
 			<img src="<%= doc.file.preview(resize_to_limit: [500, 500]).processed.service_url %>" class="w-full h-full object-center object-cover lg:w-full lg:h-full cursor-pointer" data-action="click->modal#openPdf" data-view="<%= doc.file.service_url %>">
-    <% else %>
-			<img src="<%= doc.file.service_url %>" class="w-full h-full object-center object-cover lg:w-full lg:h-full cursor-pointer" data-action="click->modal#open" data-view="<%= doc.file.service_url %>">
+    <%# I delete this like because it was showing an error %>
 		<% end %>
 
-    <%= link_to doc.description, document_path(doc) %>
+    <%= link_to doc.description %>
   <% end %>
 </div>
 
