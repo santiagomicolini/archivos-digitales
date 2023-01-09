@@ -19,11 +19,13 @@
 				</div>
 			</div>
 
-			<% if doc.file.previewable? %>
-				<img src="<%= cl_image_path(doc.file.key) %>.jpg" class="grid-item" data-action="click->modal#openPdf" data-view="<%= cl_image_path(doc.file.key) %>.jpg">
-			<% else %>
-				<%= cl_image_tag(doc.file.key, class: "grid-item", data: {action: "click->modal#open", view: cl_image_path(doc.file.key)}) %>
-			<% end %>
+      <% if doc.file.attached? %>
+        <% if doc.file.previewable? %>
+          <img src="<%= cl_image_path(doc.file.key) %>.jpg" class="grid-item" data-action="click->modal#openPdf" data-view="<%= cl_image_path(doc.file.key) %>.jpg">
+        <% else %>
+          <%= cl_image_tag(doc.file.key, class: "grid-item", data: {action: "click->modal#open", view: cl_image_path(doc.file.key)}) %>
+        <% end %>
+      <% end %>
 
 			<%= link_to doc.description %>
 		</div>
