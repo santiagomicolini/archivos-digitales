@@ -1,6 +1,7 @@
 <h1>Here we will have all the documents for the clients</h1>
 <p>Archivos de <%= @client.name %></p>
-<%= link_to "Añadir un archivo", "/clients/:client_id/documents/new"%>
+<%= link_to "Añadir un archivo", new_client_document_path(@client)%>
+<%= link_to "Volver a todos los clientes", user_path %>
 
 <div data-controller="modal" class="grid">
   <% @documents.each do |doc| %>
