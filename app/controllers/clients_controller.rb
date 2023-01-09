@@ -7,7 +7,7 @@ class ClientsController < ApplicationController
   end
 
   def show
-    @documents = Document.all
+    # @documents = Document.alls
   end
 
   def new
@@ -18,7 +18,7 @@ class ClientsController < ApplicationController
     @client = Client.new(client_params)
 
     if @client.save!
-      redirect_to @clients_path
+      redirect_to clients_path
     else
       render :new
     end
@@ -27,7 +27,7 @@ class ClientsController < ApplicationController
   private
 
   def set_documents
-    @documents = Document.find(params[:id])
+    @documents = Document.where(client: @client)
   end
 
   def set_client
