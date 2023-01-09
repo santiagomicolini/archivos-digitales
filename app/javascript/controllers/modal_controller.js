@@ -22,7 +22,7 @@ export default class extends Controller {
 	 }
 
    close() {
-		this.modalTarget.classList.add("hidden");
+		this.modalTarget.classList.add("d-none");
 	  this.modalImgShellTarget.removeChild(this.modalImgShellTarget.lastChild);
 	}
 }
