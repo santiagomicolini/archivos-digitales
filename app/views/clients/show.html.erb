@@ -21,8 +21,6 @@
 
       <% if doc.file.attached? %>
         <% if doc.file.representable? %>
-          <img src="<%= cl_image_path(doc.file.key) %>.jpg" class="grid-item" data-action="click->modal#openPdf" data-view="<%= cl_image_path(doc.file.key) %>.pdf">
-
 					<% path = cl_image_path(doc.file.key) + ".jpg" %>
 					<% index = path.index("/upload/") + path["/upload/"].size %>
 
@@ -30,8 +28,8 @@
 					<%# <% req = Net::HTTP.new(url.host, url.port) %>
 					<%# <% req.use_ssl = true %> 
 					<%# <% res = req.request_head(url.path) %>
-
-					<% counter = 2 %>
+					<% images = [] %>
+					<% counter = 1 %>
 					<% http = Net::HTTP.new(url.host, url.port) %>	
 					<% while http.head(url.request_uri).code == '200' %>
 						<% url_pg = path.insert(index, "pg_#{counter}/") %>
@@ -45,11 +43,13 @@
 							<%# <% raise %>
 							<%# <% break unless http.head(url.request_uri).code == '200' %>
 						<%# <% end %>
-
-						<img src="<%= url_pg %>">
+						<% new_url = url_pg.dup %>
+						<% images << new_url %>
 						<% path.gsub!(/pg_\d\//, "") %>
 						<% counter += 1 %>
 					<% end %>
+
+					<img src="<%= cl_image_path(doc.file.key) %>.jpg" class="grid-item" data-action="click->modal#openPdf" data-view="<%= cl_image_path(doc.file.key) %>.pdf" data-images="<%= images %>">
 
 
         <% else %>
@@ -63,8 +63,8 @@
 
 </div>
 
+
 <p>I'm going to show here all the documents for this particular client</p>
 
-<%# check up to which number the pages go %>
-<%# iterate through number of pages and display docs %>
-<%# take each page and put into a PDF for downloading %>
+<%# parse data-images in JS controller %>
+<%# use JS to insert bootstrap carousel %>
