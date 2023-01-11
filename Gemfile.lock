@@ -173,15 +173,12 @@ GEM
     orm_adapter (0.5.0)
     pdf-core (0.9.0)
     pg (1.4.5)
-<<<<<<< HEAD
-    prawn (2.4.0)
-      pdf-core (~> 0.9.0)
-      ttfunk (~> 1.7)
-=======
     pg_search (2.3.6)
       activerecord (>= 5.2)
       activesupport (>= 5.2)
->>>>>>> master
+    prawn (2.4.0)
+      pdf-core (~> 0.9.0)
+      ttfunk (~> 1.7)
     public_suffix (5.0.1)
     puma (5.6.5)
       nio4r (~> 2.0)
@@ -303,11 +300,8 @@ DEPENDENCIES
   jsbundling-rails
   net-http
   pg (~> 1.1)
-<<<<<<< HEAD
-  prawn
-=======
   pg_search
->>>>>>> master
+  prawn
   puma (~> 5.0)
   rails (~> 7.0.4)
   sassc-rails
