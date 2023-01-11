@@ -3,6 +3,7 @@
 <%= link_to "Añadir un archivo", new_client_document_path(@client)%>
 <%= link_to "Volver a todos los clientes", user_path %>
 
+
 <%= form_with url: client_path, method: :get, class: "d-flex" do %>
   <%= text_field_tag :query,
     params[:query],
@@ -12,20 +13,7 @@
   <%= submit_tag "Search", class: "btn btn-primary" %>
 <% end %>
 
-<%# <% @documents.each do |document| %>
-  <%# <% Document::TAX_NAME.each do |tax| %> %>
-   <%# <% if params[:tax]&.include?(document.id.to_s)%> %>
-          <%# <%= link_to client_path(@client, query: tax) %> %>
-          <%# <%= link_to client_path(document: params[:document] - [document.tax_name])%> %>
-      <%# <% else %>
-          <%# <%= link_to client_path(@client)%>
-        <%# <%= link_to client_path(document: params[:document] ? params[:document] + [document.tax_name] : [document.tax_name])%> %>
-      <%# <% end %>
-  <%# <% end %>
-<%# <% end %>
-
-
-<div data-controller="modal" class="grid">
+<div data-controller="modal" class="doc-grid">
   <% @documents.each do |doc| %>
 		<div>
 			<div class="d-none modal" data-modal-target="modal">
@@ -42,8 +30,38 @@
 			</div>
 
       <% if doc.file.attached? %>
-        <% if doc.file.previewable? %>
-          <img src="<%= cl_image_path(doc.file.key) %>.jpg" class="grid-item" data-action="click->modal#openPdf" data-view="<%= cl_image_path(doc.file.key) %>.jpg">
+        <% if doc.file.representable? %>
+					<% path = cl_image_path(doc.file.key) + ".jpg" %>
+					<% index = path.index("/upload/") + path["/upload/"].size %>
+
+					<% url = URI.parse(path) %>
+					<%# <% req = Net::HTTP.new(url.host, url.port) %>
+					<%# <% req.use_ssl = true %>
+					<%# <% res = req.request_head(url.path) %>
+					<% images = [] %>
+					<% counter = 1 %>
+					<% http = Net::HTTP.new(url.host, url.port) %>
+					<% while http.head(url.request_uri).code == '200' %>
+						<% url_pg = path.insert(index, "pg_#{counter}/") %>
+						<% url = URI.parse(url_pg) %>
+						<% http = Net::HTTP.new(url.host, url.port) %>
+						<%# <% req = Net::HTTP.new(url.host, url.port) %>
+						<%# <% req.use_ssl = true %>
+						<%# <% res = req.request_head(url.path) %>
+
+						<%# <% Net::HTTP.start(url.host, url.port) do |http| %>
+							<%# <% raise %>
+							<%# <% break unless http.head(url.request_uri).code == '200' %>
+						<%# <% end %>
+						<% new_url = url_pg.dup %>
+						<% images << new_url %>
+						<% path.gsub!(/pg_\d\//, "") %>
+						<% counter += 1 %>
+					<% end %>
+
+					<img src="<%= cl_image_path(doc.file.key) %>.jpg" class="grid-item" data-action="click->modal#openPdf" data-view="<%= cl_image_path(doc.file.key) %>.pdf" data-images="<%= images %>">
+
+
         <% else %>
           <%= cl_image_tag(doc.file.key, class: "grid-item", data: {action: "click->modal#open", view: cl_image_path(doc.file.key)}) %>
         <% end %>
@@ -52,6 +70,11 @@
 			<%= link_to doc.description %>
 		</div>
   <% end %>
+
 </div>
 
+
 <p>I'm going to show here all the documents for this particular client</p>
+
+<%# parse data-images in JS controller %>
+<%# use JS to insert bootstrap carousel %>
