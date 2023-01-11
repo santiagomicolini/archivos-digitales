@@ -7,7 +7,12 @@ class ClientsController < ApplicationController
   end
 
   def show
-    # @documents = Document.alls
+    if params[:query]
+      @documents = Document.search_by_name_and_agency(params[:query]).where(client: @client)
+    else
+      @documents = Document.all
+  end
+
   end
 
   def new

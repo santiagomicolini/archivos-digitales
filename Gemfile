@@ -33,6 +33,9 @@ gem "devise"
 # Gem Cloudinary
 gem "cloudinary"
 
+# Gem for the search function
+gem "pg_search"
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 
