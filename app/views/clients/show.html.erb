@@ -12,6 +12,13 @@
   <%= submit_tag "Search", class: "btn btn-primary" %>
 <% end %>
 
+<% @documents.each do |document| %>
+  <% Document::TAX_NAME.each do |tax| %>
+  <%= link_to client_path(@client, query: tax) %>
+  <% end %>
+<% end %>
+
+
 <div data-controller="modal" class="grid">
   <% @documents.each do |doc| %>
 		<div>

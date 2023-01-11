@@ -11,8 +11,11 @@ class ClientsController < ApplicationController
       @documents = Document.search_by_name_and_agency(params[:query]).where(client: @client)
     else
       @documents = Document.all
-  end
+    end
 
+    if params[:document].present?
+      @documents = @documents.where((document_id params[:document]))
+    end
   end
 
   def new
