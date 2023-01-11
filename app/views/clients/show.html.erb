@@ -3,7 +3,7 @@
 <%= link_to "Añadir un archivo", new_client_document_path(@client)%>
 <%= link_to "Volver a todos los clientes", user_path %>
 
-<div data-controller="modal" class="grid">
+<div data-controller="modal" class="doc-grid">
   <% @documents.each do |doc| %>
 		<div>
 			<div class="d-none modal" data-modal-target="modal">
