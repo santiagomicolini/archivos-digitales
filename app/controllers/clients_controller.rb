@@ -12,10 +12,11 @@ class ClientsController < ApplicationController
     else
       @documents = Document.all
     end
-
     # ver aqui para los filtros.
-    if params[:document].present?
-      @documents = @documents.where((document_id params[:document]))
+
+    if params[:category].present?
+      @documents = Document.all
+      @shops = @shops.where(shop_category_id: params[:category])
     end
   end
 
