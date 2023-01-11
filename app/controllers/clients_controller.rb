@@ -13,6 +13,7 @@ class ClientsController < ApplicationController
       @documents = Document.all
     end
 
+    # ver aqui para los filtros.
     if params[:document].present?
       @documents = @documents.where((document_id params[:document]))
     end

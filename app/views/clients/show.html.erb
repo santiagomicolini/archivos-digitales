@@ -12,17 +12,17 @@
   <%= submit_tag "Search", class: "btn btn-primary" %>
 <% end %>
 
-<% @documents.each do |document| %>
-  <% Document::TAX_NAME.each do |tax| %>
-   <% if params[:tax]&.include?(document.id.to_s)%>
-          <%= link_to client_path(@client, query: tax) %>
+<%# <% @documents.each do |document| %>
+  <%# <% Document::TAX_NAME.each do |tax| %> %>
+   <%# <% if params[:tax]&.include?(document.id.to_s)%> %>
+          <%# <%= link_to client_path(@client, query: tax) %> %>
           <%# <%= link_to client_path(document: params[:document] - [document.tax_name])%> %>
-      <% else %>
-          <%= link_to client_path(@client)%>
+      <%# <% else %>
+          <%# <%= link_to client_path(@client)%>
         <%# <%= link_to client_path(document: params[:document] ? params[:document] + [document.tax_name] : [document.tax_name])%> %>
-      <% end %>
-  <% end %>
-<% end %>
+      <%# <% end %>
+  <%# <% end %>
+<%# <% end %>
 
 
 <div data-controller="modal" class="grid">
