@@ -7,16 +7,14 @@ class ClientsController < ApplicationController
   end
 
   def show
-    if params[:query]
-      @documents = Document.search_by_name_and_agency(params[:query]).where(client: @client)
+    if params[:search]
+      @documents = Document.search_by_name_and_agency(params[:search]).where(client: @client)
     else
-      @documents = Document.all
+      @documents = Document.where(client: @client)
     end
-    # ver aqui para los filtros.
 
-    if params[:category].present?
-      @documents = Document.all
-      @shops = @shops.where(shop_category_id: params[:category])
+    if params[:query]
+      @documents = @documents.where(tax_name: params[:query]).where(client: @client)
     end
   end
 

@@ -5,20 +5,27 @@
 
 
 <%= form_with url: client_path, method: :get, class: "d-flex" do %>
-  <%= text_field_tag :query,
-    params[:query],
+  <%= text_field_tag :search,
+    params[:search],
     class: "form-control",
     placeholder: "Buscar por documentos"
   %>
   <%= submit_tag "Search", class: "btn btn-primary" %>
 <% end %>
 
+   <% Document::TAX_NAME.each do |tax| %>
+   <% if params[:query]&.include?(tax)%>
+        <%= link_to tax, client_path(@client, query: params[:query] - [tax])%>
+    <% else %>
+      <%# link_to client_path(@client --> show page of the client %>
+      <%# query: params[:query] -- checking if params query exist? true/false %>
+      <%# if they exist --> add the new filter params[:query] + [tax] to the params hash --> true condition %>
+      <%# if does not exist --> create the new params query with the first argunemt [tax ] --> false condition%>
+      <%# link_to tax -->  %>
+        <%= link_to tax, client_path(@client, query: params[:query] ? params[:query] + [tax] : [tax])%>
+     <% end %>
+   <% end %>
 
- <%# I don't know hoy to get the params for a particular tax_name  %>
- <%# I can't iterate over the documents and I don't fucking understand %>
-  <%=  Document::TAX_NAME.each do |each_tax|%>
-    <%= puts each_tax %>
-  <% end %>
 
 <div data-controller="modal" class="doc-grid">
   <% @documents.each do |doc| %>
