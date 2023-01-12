@@ -16,6 +16,10 @@ class ClientsController < ApplicationController
     if params[:query]
       @documents = @documents.where(tax_name: params[:query]).where(client: @client)
     end
+
+    if params[:agency_filter]
+      @documents = @documents.where(agency: params[:agency_filter]).where(client: @client)
+    end
   end
 
   def new

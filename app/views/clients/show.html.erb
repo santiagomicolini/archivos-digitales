@@ -26,6 +26,14 @@
      <% end %>
    <% end %>
 
+   <% Document::AGENCY_NAME.each do |name| %>
+   <% if params[:agency_filter]&.include?(name)%>
+        <%= link_to name, client_path(@client, agency_filter: params[:agency_filter] - [name])%>
+    <% else %>
+        <%= link_to name, client_path(@client, agency_filter: params[:agency_filter] ? params[:agency_filter] + [name] : [name])%>
+     <% end %>
+   <% end %>
+
 
 <div data-controller="modal" class="doc-grid">
   <% @documents.each do |doc| %>
