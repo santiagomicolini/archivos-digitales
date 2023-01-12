@@ -5,5 +5,5 @@
 <%= link_to 'Crear un nuevo cliente', '/clients/new' %>
 
 <% @clients.each do |client| %>
-  <%= link_to client.name, client_path %>
+  <%= link_to client.name, client_path(client) %>
 <% end %>

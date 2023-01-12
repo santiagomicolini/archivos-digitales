@@ -5,13 +5,27 @@
 
 
 <%= form_with url: client_path, method: :get, class: "d-flex" do %>
-  <%= text_field_tag :query,
-    params[:query],
+  <%= text_field_tag :search,
+    params[:search],
     class: "form-control",
     placeholder: "Buscar por documentos"
   %>
   <%= submit_tag "Search", class: "btn btn-primary" %>
 <% end %>
+
+   <% Document::TAX_NAME.each do |tax| %>
+   <% if params[:query]&.include?(tax)%>
+        <%= link_to tax, client_path(@client, query: params[:query] - [tax])%>
+    <% else %>
+      <%# link_to client_path(@client --> show page of the client %>
+      <%# query: params[:query] -- checking if params query exist? true/false %>
+      <%# if they exist --> add the new filter params[:query] + [tax] to the params hash --> true condition %>
+      <%# if does not exist --> create the new params query with the first argunemt [tax ] --> false condition%>
+      <%# link_to tax -->  %>
+        <%= link_to tax, client_path(@client, query: params[:query] ? params[:query] + [tax] : [tax])%>
+     <% end %>
+   <% end %>
+
 
 <div data-controller="modal" class="doc-grid">
   <% @documents.each do |doc| %>
@@ -36,16 +50,16 @@
 
 					<% url = URI.parse(path) %>
 					<%# <% req = Net::HTTP.new(url.host, url.port) %>
-					<%# <% req.use_ssl = true %> 
+					<%# <% req.use_ssl = true %>
 					<%# <% res = req.request_head(url.path) %>
 					<% images = [] %>
 					<% counter = 1 %>
-					<% http = Net::HTTP.new(url.host, url.port) %>	
+					<% http = Net::HTTP.new(url.host, url.port) %>
 					<% while http.head(url.request_uri).code == '200' %>
 						<% url_pg = path.insert(index, "pg_#{counter}/") %>
 						<% url = URI.parse(url_pg) %>
 						<% http = Net::HTTP.new(url.host, url.port) %>
-						<%# <% req = Net::HTTP.new(url.host, url.port) %>	
+						<%# <% req = Net::HTTP.new(url.host, url.port) %>
 						<%# <% req.use_ssl = true %>
 						<%# <% res = req.request_head(url.path) %>
 
