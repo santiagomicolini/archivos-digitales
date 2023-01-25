@@ -102,7 +102,12 @@
         <% end %>
       <% end %>
 
+
 		<p><%= doc.description %></p>
+    
+			<%= link_to "Download", document_download_path(doc, images: images), target: "_blank" %>
+			<%= link_to "Preview", document_preview_path(doc, images: images), target: "_blank" %>
+
 		</div>
   <% end %>
 </div>
