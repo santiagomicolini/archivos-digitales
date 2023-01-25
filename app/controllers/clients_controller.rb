@@ -16,6 +16,12 @@ class ClientsController < ApplicationController
     if params[:query]
       @documents = @documents.where(tax_name: params[:query]).where(client: @client)
     end
+
+    # the agency: in line 22 is related with the column in the schema --> to see if agency is present in the params
+    # So i want to show the documents where where params and agency(schema) are equals. !!??
+    if params[:agency_filter]
+      @documents = @documents.where(agency: params[:agency_filter]).where(client: @client)
+    end
   end
 
   def new
