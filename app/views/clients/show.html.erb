@@ -17,23 +17,23 @@
   <% end %>
 </span>
 
-<div>
-  <%= link_to "Añadir un archivo", new_client_document_path(@client)%>
+<div class="new-file">
+  <%= link_to "Añadir un archivo", new_client_document_path(@client), class: "btn btn-primary"%>
 </div>
 
-<div class="container">
-<div>
+<div class="files-section">
+<div class="filters">
     <p>Filtrar por agencia</p>
    <% Document::TAX_NAME.each do |tax| %>
    <% if params[:query]&.include?(tax)%>
-        <%= link_to tax, client_path(@client, query: params[:query] - [tax])%>
+      <%= link_to tax, client_path(@client, query: params[:query] - [tax])%>
     <% else %>
       <%# link_to client_path(@client --> show page of the client %>
       <%# query: params[:query] -- checking if params query exist? true/false %>
       <%# if they exist --> add the new filter params[:query] + [tax] to the params hash --> true condition %>
       <%# if does not exist --> create the new params query with the first argunemt [tax ] --> false condition%>
       <%# link_to tax -->  %>
-        <%= link_to tax, client_path(@client, query: params[:query] ? params[:query] + [tax] : [tax])%>
+    <%= link_to tax, client_path(@client, query: params[:query] ? params[:query] + [tax] : [tax])%>
      <% end %>
    <% end %>
 
@@ -102,9 +102,12 @@
         <% end %>
       <% end %>
 
-			<%= link_to doc.description %>
+
+		<p><%= doc.description %></p>
+    
 			<%= link_to "Download", document_download_path(doc, images: images), target: "_blank" %>
 			<%= link_to "Preview", document_preview_path(doc, images: images), target: "_blank" %>
+
 		</div>
   <% end %>
 </div>
